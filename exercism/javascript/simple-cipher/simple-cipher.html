@@ -1,0 +1,24 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Send coded messages</title>
+  <meta name="description" content="Send coded messages">
+  <meta name="author" content="Sahar Bala">
+
+</head>
+
+<body>
+	<script defer src="simple-cipher.js"></script>
+		<textarea name="message" rows="10" cols="30">Enter your message here!</textarea>
+		<span>
+			<p>Provide a random string of characters to use as the 'key' to encode or decode your message</p>
+			<input name="key" type="text">
+		</span>
+	  	<br>
+	  	<button onclick="Cipher.encode()">Encode</button>
+
+	  	<button onclick="Cipher.decode()">Decode</button>
+</body>
