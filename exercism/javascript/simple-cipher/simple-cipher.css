@@ -1,0 +1,41 @@
+textarea {
+    height: 20em;
+    width: 50em;
+    padding: 10px;
+    margin: 10px;
+    border: 6px solid #2bc7e2;
+    font-family: Tahoma;
+    font-size: 13px;
+}
+input {
+    padding: 10px;
+    margin: 10px;
+    border: 6px solid #2bc7e2;
+    font-family: Tahoma;
+    width: 25em;
+}
+
+p {
+    font-family: Tahoma;
+    font-size: 13px;
+    margin: 10px;
+}
+
+button {
+    background-color: lightcyan;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 2px solid #2bc7e2;
+    box-shadow: 2px 2px 0px 0px #b3b8bb;
+    width: 10em;
+}
+
+button:hover {
+    background-color: #2bc7e2;
+    font-weight: bold;
+}
+
+button:active {
+    background-color: white;
+}
