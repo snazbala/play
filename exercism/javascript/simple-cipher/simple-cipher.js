@@ -1,40 +1,33 @@
-const Cipher = function (key) {
-    this.key = key;
-};
-
-const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
-
-const alphabetToIndexMapping = () => {
+/**
+ * @param  {str} alphabet   alphabet string
+ * @return {obj}            an alphabet to index mapping
+ */
+const alphabetToIndexMapping = (alphabet) => {
     const alphabetMapping = {};
     let index = 0;
 
-    ALPHABET.split('').forEach((alphaChar) => {
+    alphabet.split('').forEach((alphaChar) => {
         alphabetMapping[alphaChar] = index;
         index += 1;
     });
     return alphabetMapping;
 };
 
-/**
- * Returns the alphaIndex of the character as defined by the alphabetMapping.
- * For instance, for the regular alphabet:
- * char = a returns 0
- * char = z returns 25
- * @param  {str} char     a single character to find the index of
- * @param  {str} alphabetMapping an alphabet object to match the character against to find the index
- * @return {int}          an integer representing the index of the character
- */
-const charToAlphaIndex = (char, alphabetMapping) => alphabetMapping[char];
+this.ALPHABET_MAPPING = alphabetToIndexMapping('abcdefghijklmnopqrstuvwxyz');
+this.ALPHABET_STRING = 'abcdefghijklmnopqrstuvwxyz';
 
 /**
- * Takes in a character index and an alphabet string. Returns the character at
- * the given index using the alphabet string. For instance, for the regular alphabet:
+ * char = a returns 0
+ * char = z returns 25
+ * @param  {str} char     a single character to find the index of from this.ALPHABET
+ * @return {int}          an integer representing the index of the character
+ */
+const charToAlphaIndex = char => (this.ALPHABET_MAPPING[char]);
+
+/**
  * index = 0 returns 'a'
  * index = 25 returns 'z'
  * index = 26 returns 'a'
- * We use % to convert the index to its corresponding index when wrapped around the alphabet.
- * For instance, an index of 40 % 26 = 14, so we use the new index of 14 to find the correct
- * character.
  * @param  {int} index    integer representing the index of the character
  * @param  {str} alphabet an alphabet string to match the index of the character against
  * @return {str}          a single character at that position in the alphabet
@@ -42,17 +35,15 @@ const charToAlphaIndex = (char, alphabetMapping) => alphabetMapping[char];
 const indexToChar = (index) => {
     // If we're given a negative index, convert it to its positive value
     if (index < 0) {
-        index = index + ALPHABET.length;
+        index = index + this.ALPHABET_STRING.length;
     }
-    const convertedIndex = index % ALPHABET.length;
+    const convertedIndex = index % this.ALPHABET_STRING.length;
 
-    return ALPHABET.charAt(convertedIndex);
+    return this.ALPHABET_STRING.charAt(convertedIndex);
 };
 
 /**
- * Validates a given key to ensure that the key is long enough to be able to
- * properly encode or decode the strToConvert. If the key is not long enough,
- * this method will repeat the key characters until the key becomes long enough.
+ * Ensure that the key is long enough to be able to encode or decode the strToConvert.
  * For instance, given a key of 'ab' and a strToConvert of 'sahar', the key will
  * return as 'ababa'.
  * TODO: Add more validation for non-alpha keys
@@ -61,6 +52,9 @@ const indexToChar = (index) => {
  * @return {str}                the validated key
  */
 const validateKey = (key, strToConvert) => {
+    if (key === '') {
+        key = 'd';
+    }
     if (key.length >= strToConvert.length) {
         return key;
     }
@@ -79,22 +73,26 @@ const validateKey = (key, strToConvert) => {
 };
 
 /**
- * Takes in a string and returns an encoded string. Uses the provided key
- * to encode each individual character according to the matching key character
- * (by index). For instance, given a key of 'bbbb': string = 'abcd' returns 'bcde'
- * @param  {str} strToEncode user inputted string to encode
+ * Gets the message string and key from the form and returns an encoded string.
+ * For instance, given a key of 'bbbb': string = 'abcd' returns 'bcde'.
  * @return {str}                encoded string
  */
-Cipher.prototype.encode = function (strToEncode) {
+const encode = function () {
+    document.getElementById('encode').innerHTML = '';
+
+    const strToEncode = document.getElementById('message').value;
+    let key = document.getElementById('key').value;
     let charStrIndex = 0;
-    const key = validateKey(this.key, strToEncode);
-    const alphabetMapping = alphabetToIndexMapping();
+    key = validateKey(key, strToEncode);
 
     const encodedArray = strToEncode.split('').map((char) => {
+        if (char === ' ') {
+            return ' ';
+        }
         // get the alphaIndex of the current character
-        const charAlphaIndex = charToAlphaIndex(char, alphabetMapping);
+        const charAlphaIndex = charToAlphaIndex(char);
         // get the alphaIndex of the key character at the current character's position
-        const keyCharAlphaIndex = charToAlphaIndex(key.toLowerCase().charAt(charStrIndex), alphabetMapping);
+        const keyCharAlphaIndex = charToAlphaIndex(key.toLowerCase().charAt(charStrIndex));
 
         const encodedIndex = charAlphaIndex + keyCharAlphaIndex;
         const encodedChar = indexToChar(encodedIndex);
@@ -103,27 +101,35 @@ Cipher.prototype.encode = function (strToEncode) {
         return encodedChar;
     });
 
-    return encodedArray.join('');
+    const encodedStr = encodedArray.join('');
+
+    const textToAdd = document.createTextNode(encodedStr);
+    const encodedTextArea = document.getElementById('encode');
+
+    encodedTextArea.appendChild(textToAdd);
 };
 
 /**
- * Takes in an encoded string and returns a decoded string. Uses the provided key
- *to decode each individual character according to the matching key character
- *(by index). For instance, given a key of 'bbbb:
- *encoded = 'bcde' returns the decoded string, 'abcd'
- * @param  {str} encodedStr user inputted encoded string to decode
+ * Gets the encoded message string and key from the form and returns an decoded string.
+ * For instance, the encoded = 'bcde' returns the decoded string, 'abcd'
  * @return {str}               decoded string
  */
-Cipher.prototype.decode = function (encodedStr) {
+const decode = function () {
+    document.getElementById('decode').innerHTML = '';
+
+    const encodedStr = document.getElementById('message').value;
+    let key = document.getElementById('key').value;
     let charStrIndex = 0;
-    const key = validateKey(this.key, encodedStr);
-    const alphabetMapping = alphabetToIndexMapping();
+    key = validateKey(key, encodedStr);
 
     const decodedArray = encodedStr.split('').map((char) => {
+        if (char === ' ') {
+            return ' ';
+        }
         // get the alphaIndex of the current character
-        const charAlphaIndex = charToAlphaIndex(char, alphabetMapping);
+        const charAlphaIndex = charToAlphaIndex(char);
         // get the alphaIndex of the key character at the current character's position
-        const keyCharAlphaIndex = charToAlphaIndex(key.toLowerCase().charAt(charStrIndex), alphabetMapping);
+        const keyCharAlphaIndex = charToAlphaIndex(key.toLowerCase().charAt(charStrIndex));
 
         const decodedIndex = charAlphaIndex - keyCharAlphaIndex;
         const decodedChar = indexToChar(decodedIndex);
@@ -132,7 +138,21 @@ Cipher.prototype.decode = function (encodedStr) {
         return decodedChar;
     });
 
-    return decodedArray.join('');
+    const decodedStr = decodedArray.join('');
+
+    const textToAdd = document.createTextNode(decodedStr);
+    const decodedTextArea = document.getElementById('decode');
+
+    decodedTextArea.appendChild(textToAdd);
 };
 
-module.exports = Cipher;
+/**
+ * Resets all fields to empty.
+ */
+const reset = function () {
+    document.getElementById('decode').innerHTML = '';
+    document.getElementById('encode').innerHTML = '';
+    document.getElementById('key').value = '';
+    document.getElementById('message').value = '';
+};
+

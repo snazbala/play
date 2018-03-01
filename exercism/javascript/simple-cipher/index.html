@@ -11,15 +11,28 @@
 </head>
 
 <body>
-	<script defer src="simple-cipher.js"></script>
-		<textarea name="message">Enter your message here!</textarea>
-		<span>
-			<p>Provide a random string of characters to use as the 'key' (essentially, a password) to encode or decode your message.</p>
-            <p> Keep this key close, you'll need it!</p>
-			<input name="key" type="text" placeholder="oiwesfmbs">
-		</span>
-	  	<br>
-	<button>Encode</button>
+    <script defer src="simple-cipher.js"></script>
+        <textarea name="message" id="message" placeholder="Enter your message here"></textarea>
+        <span>
+            <p>Provide a random string of characters to use as the 'key' (essentially, a password) to encode or decode your message.</p>
+            <p>Keep this key close, you'll need it so you can give it to the person receiving your message!</p>
+            <p>If no key is provided, your key will be a long string of "d"'s, such as 'dddddddddd'</p>
+            <input name="key" type="text" id="key" placeholder="Enter your key here">
+        </span>
+        <br>
 
-    <button>Decode</button>
+        <button onclick="encode()">Encode</button>
+        <button onclick="decode()">Decode</button>
+        <button class="reset" onclick="reset()">Reset Form</button>
+
+        <p>Your encoded text will appear here:</p>
+        <div id="encode-wrapper">
+            <p id="encode"></p>
+        </div>
+
+        <p>Your decoded text will appear here:</p>
+        <div id="decode-wrapper">
+            <p id="decode"></p>
+        </div>
+
 </body>
