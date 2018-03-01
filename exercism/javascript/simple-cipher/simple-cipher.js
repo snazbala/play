@@ -155,4 +155,3 @@ const reset = function () {
     document.getElementById('key').value = '';
     document.getElementById('message').value = '';
 };
-
