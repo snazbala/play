@@ -39,3 +39,21 @@ button:hover {
 button:active {
     background-color: white;
 }
+
+#encode, #decode {
+    border: 6px solid #2bc7e2;
+}
+
+
+.reset {
+    background-color: lightgray;
+    border: 2px solid gray;
+}
+
+.reset:hover {
+    background-color: gray;
+}
+
+.reset:active {
+    background-color: white;
+}
