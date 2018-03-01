@@ -33,8 +33,8 @@ const charToAlphaIndex = char => (this.ALPHABET_MAPPING[char]);
  * @return {str}          a single character at that position in the alphabet
  */
 const indexToChar = (index) => {
-    // If we're given a negative index, convert it to its positive value
     if (index < 0) {
+        // If we're given a negative index, convert it to its positive value
         index = index + this.ALPHABET_STRING.length;
     }
     const convertedIndex = index % this.ALPHABET_STRING.length;
