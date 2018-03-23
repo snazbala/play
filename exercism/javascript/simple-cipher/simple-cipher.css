@@ -1,59 +1,133 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background-color: #6B7A8F;
+}
+
+.header {
+    position: relative;
+    height: 25%;
+    width: 100%;
+    padding: 50px;
+    background: #6B7A8F;
+    margin-bottom: 50px;
+    border-bottom: 10px solid #DCC7AA;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    height: 50%;
+    width: 50%;
+}
+
+h1 {
+    font-family: fantasy;
+}
+
+.inputs {
+    display: flex;
+    flex-flow: row-wrap;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#id {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.encoded-output, .decoded-output {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+
 textarea {
     height: 20em;
     width: 50em;
     padding: 10px;
     margin: 10px;
-    border: 6px solid #2bc7e2;
     font-family: Tahoma;
     font-size: 13px;
+    border-radius: 5px;
+    border: solid 1px #DCC7AA;
 }
+
 input {
     padding: 10px;
     margin: 10px;
-    border: 6px solid #2bc7e2;
     font-family: Tahoma;
     width: 25em;
+    border-radius: 5px;
+    font-size: 13px;
+    border: solid 1px #DCC7AA;
 }
 
 p {
     font-family: Tahoma;
     font-size: 13px;
     margin: 10px;
+    color: white;
 }
 
 button {
-    background-color: lightcyan;
+    background-color: #F7C331;
     padding: 5px;
     margin: 10px;
     border-radius: 5px;
-    border: 2px solid #2bc7e2;
-    box-shadow: 2px 2px 0px 0px #b3b8bb;
     width: 10em;
+    color: #000000;
+    border: 5px solid #F7C331;
 }
 
 button:hover {
-    background-color: #2bc7e2;
-    font-weight: bold;
+    background-color: #6B7A8F;
+    color: #000000;
+    border: 5px solid #F7C331;
 }
 
 button:active {
-    background-color: white;
+    background-color: #6B7A8F;
+    border: 5px solid #F7C331;
 }
 
 #encode, #decode {
-    border: 6px solid #2bc7e2;
+    border: 8px solid #6B7A8F;
+    height: 10em;
+    width: 20em;
+    border-radius: 5px;
 }
 
-
 .reset {
-    background-color: lightgray;
-    border: 2px solid gray;
+    background-color: #DCC7AA;
+    border: 5px solid #DCC7AA;
+    color: #000000;
 }
 
 .reset:hover {
-    background-color: gray;
+    background-color: #6B7A8F;
+    color: #000000;
+    border: 5px solid #DCC7AA;
 }
 
 .reset:active {
-    background-color: white;
+    background-color: #6B7A8F;
+    color: #000000;
+    border: 5px solid #DCC7AA;
 }
